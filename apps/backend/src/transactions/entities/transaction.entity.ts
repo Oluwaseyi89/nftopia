@@ -1,12 +1,51 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+// import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+// import { User } from '../../users/entities/user.entity';
+// import { NFT } from '../../nfts/entities/nft.entity';
+// import { Auction } from '../../auctions/entities/auction.entity';
+
+// @Entity()
+// export class Transaction {
+//   @PrimaryGeneratedColumn('uuid')
+//   id: string;
+
+//   @ManyToOne(() => User, (user) => user.purchases, { eager: true })
+//   buyer: User;
+
+//   @ManyToOne(() => User, (user) => user.sales, { eager: true })
+//   seller: User;
+
+//   @ManyToOne(() => NFT)
+//   nft: NFT;
+
+//   @ManyToOne(() => Auction)
+//   auction: Auction;
+
+//   @Column({ type: 'decimal', precision: 36, scale: 18 })
+//   amount: number;
+
+//   @Column()
+//   transactionHash: string;
+
+//   @Column({ default: 'pending' })
+//   status: 'pending' | 'completed' | 'failed';
+
+//   @CreateDateColumn({ type: 'timestamptz' })
+//   timestamp: Date;
+// }
+
+
+import { Entity, PrimaryColumn, Column, ManyToOne } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 import { NFT } from '../../nfts/entities/nft.entity';
 import { Auction } from '../../auctions/entities/auction.entity';
 
 @Entity()
 export class Transaction {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')          // <-- keep id as part of PK
   id: string;
+
+  @PrimaryColumn({ type: 'timestamptz' }) // <-- add timestamp as part of PK
+  timestamp: Date;
 
   @ManyToOne(() => User, (user) => user.purchases, { eager: true })
   buyer: User;
@@ -28,7 +67,4 @@ export class Transaction {
 
   @Column({ default: 'pending' })
   status: 'pending' | 'completed' | 'failed';
-
-  @CreateDateColumn({ type: 'timestamptz' })
-  timestamp: Date;
 }
