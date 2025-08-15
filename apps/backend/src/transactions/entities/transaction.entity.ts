@@ -39,7 +39,7 @@ import { User } from '../../users/entities/user.entity';
 import { NFT } from '../../nfts/entities/nft.entity';
 import { Auction } from '../../auctions/entities/auction.entity';
 
-@Entity()
+@Entity({ schema: 'nftopia_payment_service' })
 export class Transaction {
   @PrimaryColumn('uuid')          // <-- keep id as part of PK
   id: string;
