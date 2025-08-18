@@ -1,0 +1,425 @@
+{
+  "abi": [
+    {
+      "type": "impl",
+      "name": "ReentrancyGuardImpl",
+      "interface_name": "nftopia::contracts::escrow_contract::EscrowContract::IReentrancyGuard"
+    },
+    {
+      "type": "enum",
+      "name": "core::bool",
+      "variants": [
+        {
+          "name": "False",
+          "type": "()"
+        },
+        {
+          "name": "True",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "interface",
+      "name": "nftopia::contracts::escrow_contract::EscrowContract::IReentrancyGuard",
+      "items": [
+        {
+          "type": "function",
+          "name": "assert_non_reentrant",
+          "inputs": [],
+          "outputs": [],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "is_locked",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::bool"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "impl",
+      "name": "EscrowImpl",
+      "interface_name": "nftopia::contracts::escrow_contract::IEscrow"
+    },
+    {
+      "type": "struct",
+      "name": "core::integer::u256",
+      "members": [
+        {
+          "name": "low",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "high",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
+      "type": "interface",
+      "name": "nftopia::contracts::escrow_contract::IEscrow",
+      "items": [
+        {
+          "type": "function",
+          "name": "create_swap",
+          "inputs": [
+            {
+              "name": "nft_contract",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "nft_id",
+              "type": "core::integer::u256"
+            },
+            {
+              "name": "price",
+              "type": "core::integer::u256"
+            },
+            {
+              "name": "expiry",
+              "type": "core::integer::u64"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::integer::u256"
+            }
+          ],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "accept_swap",
+          "inputs": [
+            {
+              "name": "swap_id",
+              "type": "core::integer::u256"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "cancel_swap",
+          "inputs": [
+            {
+              "name": "swap_id",
+              "type": "core::integer::u256"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "dispute_swap",
+          "inputs": [
+            {
+              "name": "swap_id",
+              "type": "core::integer::u256"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "get_swap",
+          "inputs": [
+            {
+              "name": "swap_id",
+              "type": "core::integer::u256"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "(core::starknet::contract_address::ContractAddress, core::starknet::contract_address::ContractAddress, core::integer::u256, core::integer::u256, core::integer::u64, core::integer::u8)"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_swap_count",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u256"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_total_swaps_created",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u256"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_total_swaps_completed",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u256"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_total_volume",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u256"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "impl",
+      "name": "AdminImpl",
+      "interface_name": "nftopia::contracts::escrow_contract::IAdmin"
+    },
+    {
+      "type": "interface",
+      "name": "nftopia::contracts::escrow_contract::IAdmin",
+      "items": [
+        {
+          "type": "function",
+          "name": "set_admin",
+          "inputs": [
+            {
+              "name": "new_admin",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "set_moderator",
+          "inputs": [
+            {
+              "name": "new_moderator",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "pause",
+          "inputs": [],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "unpause",
+          "inputs": [],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "get_admin",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_moderator",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "is_paused",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::bool"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::escrow_contract::EscrowContract::SwapCreated",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "swap_id",
+          "type": "core::integer::u256",
+          "kind": "key"
+        },
+        {
+          "name": "creator",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "key"
+        },
+        {
+          "name": "nft_contract",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        },
+        {
+          "name": "nft_id",
+          "type": "core::integer::u256",
+          "kind": "data"
+        },
+        {
+          "name": "price",
+          "type": "core::integer::u256",
+          "kind": "data"
+        },
+        {
+          "name": "expiry",
+          "type": "core::integer::u64",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::escrow_contract::EscrowContract::SwapAccepted",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "swap_id",
+          "type": "core::integer::u256",
+          "kind": "key"
+        },
+        {
+          "name": "acceptor",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "key"
+        },
+        {
+          "name": "accepted_at",
+          "type": "core::integer::u64",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::escrow_contract::EscrowContract::SwapCancelled",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "swap_id",
+          "type": "core::integer::u256",
+          "kind": "key"
+        },
+        {
+          "name": "cancelled_by",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "key"
+        },
+        {
+          "name": "cancelled_at",
+          "type": "core::integer::u64",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::escrow_contract::EscrowContract::SwapDisputed",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "swap_id",
+          "type": "core::integer::u256",
+          "kind": "key"
+        },
+        {
+          "name": "disputed_by",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "key"
+        },
+        {
+          "name": "disputed_at",
+          "type": "core::integer::u64",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::escrow_contract::EscrowContract::ReentrancyGuardEvent",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "locked",
+          "type": "core::bool",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::escrow_contract::EscrowContract::Event",
+      "kind": "enum",
+      "variants": [
+        {
+          "name": "SwapCreated",
+          "type": "nftopia::contracts::escrow_contract::EscrowContract::SwapCreated",
+          "kind": "nested"
+        },
+        {
+          "name": "SwapAccepted",
+          "type": "nftopia::contracts::escrow_contract::EscrowContract::SwapAccepted",
+          "kind": "nested"
+        },
+        {
+          "name": "SwapCancelled",
+          "type": "nftopia::contracts::escrow_contract::EscrowContract::SwapCancelled",
+          "kind": "nested"
+        },
+        {
+          "name": "SwapDisputed",
+          "type": "nftopia::contracts::escrow_contract::EscrowContract::SwapDisputed",
+          "kind": "nested"
+        },
+        {
+          "name": "ReentrancyGuard",
+          "type": "nftopia::contracts::escrow_contract::EscrowContract::ReentrancyGuardEvent",
+          "kind": "nested"
+        }
+      ]
+    }
+  ]
+}

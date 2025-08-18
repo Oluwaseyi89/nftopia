@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,17 +17,33 @@ import { getCookie } from "@/lib/CSRFTOKEN";
 import { FileDropZone } from "@/lib";
 import type { FileWithMeta } from "@/lib/interfaces";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useWalletStore } from "@/lib/stores/use-wallet-store";
+import { createUserCollectionOnchain } from "@/lib/utils/collection-factory";
 
-interface CreateCollectionForm {
+// interface CreateCollectionForm {
+//   name: string;
+//   bannerImage: File | null;
+//   description: string;
+// }
+
+
+// const { account } = useWalletStore;
+
+export interface CreateCollectionForm {
   name: string;
   description: string;
   bannerImage: File | null;
+  txHash?: string;
+  collectionAddress?: string;
 }
+
 
 interface FormErrors {
   name?: string;
   description?: string;
   bannerImage?: string;
+  txHash?: string;
+  collectionAddress?: string;
   general?: string;
 }
 
@@ -40,7 +56,10 @@ export default function CreateYourCollection() {
     name: "",
     description: "",
     bannerImage: null,
+    txHash: "",
+    collectionAddress: ""
   });
+  
   const [errors, setErrors] = useState<FormErrors>({});
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -50,6 +69,15 @@ export default function CreateYourCollection() {
   const [selectedFiles, setSelectedFiles] = useState<FileWithMeta[]>([]);
 
   console.log(form);
+  const createCollectionContractAddress = process.env.NEXT_PUBLIC_COLLECTION_FACTORY_CONTRACT_ADDRESS!;
+  const { connectWallet } = useWalletStore();
+  useEffect(() => {
+    connectWallet();
+  },[]);
+const signer = useWalletStore.getState().account;
+
+console.log("Signer: ", signer);
+console.log("Contract Address: ", createCollectionContractAddress!);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -96,6 +124,12 @@ export default function CreateYourCollection() {
     setErrors({});
     setIsLoading(true);
 
+ 
+
+    const tx = await createUserCollectionOnchain(signer, createCollectionContractAddress);
+
+    const { txHash, collectionAddress } = tx;
+
     try {
       const csrfToken = await getCookie();
       console.log(csrfToken);
@@ -108,7 +142,7 @@ export default function CreateYourCollection() {
               "Content-Type": "application/json",
               "X-CSRF-Token": csrfToken,
             },
-            body: JSON.stringify({ ...form, bannerImage: firebaseUrl }),
+            body: JSON.stringify({ ...form, bannerImage: firebaseUrl, txHash, collectionAddress }),
           });
         })
         .finally(() => {
@@ -120,10 +154,17 @@ export default function CreateYourCollection() {
       setSuccess(true);
       showSuccess(t("createCollection.success"));
 
+      const data = await res.json();
+
+      console.log(data);
+
+
       setForm({
         name: "",
         description: "",
         bannerImage: null,
+        txHash: "",
+        collectionAddress: ""
       });
       setImagePreview(null);
       setUploadedImageUrl(null);

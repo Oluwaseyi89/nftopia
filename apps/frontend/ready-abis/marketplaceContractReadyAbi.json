@@ -1,0 +1,124 @@
+{
+  "abi": [
+    {
+      "type": "impl",
+      "name": "MarketplaceSettlementImpl",
+      "interface_name": "nftopia::contracts::marketplace_settlement_contract::IMarketplaceSettlement"
+    },
+    {
+      "type": "struct",
+      "name": "core::integer::u256",
+      "members": [
+        {
+          "name": "low",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "high",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
+      "type": "interface",
+      "name": "nftopia::contracts::marketplace_settlement_contract::IMarketplaceSettlement",
+      "items": [
+        {
+          "type": "function",
+          "name": "distribute_payment",
+          "inputs": [
+            {
+              "name": "token_id",
+              "type": "core::integer::u256"
+            },
+            {
+              "name": "sale_price",
+              "type": "core::integer::u256"
+            },
+            {
+              "name": "seller",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "nft_contract",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "get_payment_token",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_marketplace_owner",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::marketplace_settlement_contract::MarketplaceSettlement::PaymentDistributed",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "token_id",
+          "type": "core::integer::u256",
+          "kind": "key"
+        },
+        {
+          "name": "seller",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "key"
+        },
+        {
+          "name": "nft_contract",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "key"
+        },
+        {
+          "name": "sale_price",
+          "type": "core::integer::u256",
+          "kind": "data"
+        },
+        {
+          "name": "royalty_amount",
+          "type": "core::integer::u256",
+          "kind": "data"
+        },
+        {
+          "name": "royalty_receiver",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::marketplace_settlement_contract::MarketplaceSettlement::Event",
+      "kind": "enum",
+      "variants": [
+        {
+          "name": "PaymentDistributed",
+          "type": "nftopia::contracts::marketplace_settlement_contract::MarketplaceSettlement::PaymentDistributed",
+          "kind": "nested"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "abi": [
+    {
+      "type": "impl",
+      "name": "CollectionFactoryImpl",
+      "interface_name": "nftopia::contracts::collection_factory_contract::ICollectionFactory"
+    },
+    {
+      "type": "struct",
+      "name": "core::integer::u256",
+      "members": [
+        {
+          "name": "low",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "high",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "core::array::Span::<core::integer::u256>",
+      "members": [
+        {
+          "name": "snapshot",
+          "type": "@core::array::Array::<core::integer::u256>"
+        }
+      ]
+    },
+    {
+      "type": "enum",
+      "name": "core::bool",
+      "variants": [
+        {
+          "name": "False",
+          "type": "()"
+        },
+        {
+          "name": "True",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "interface",
+      "name": "nftopia::contracts::collection_factory_contract::ICollectionFactory",
+      "items": [
+        {
+          "type": "function",
+          "name": "create_collection",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "get_user_collections",
+          "inputs": [
+            {
+              "name": "user",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<core::starknet::contract_address::ContractAddress>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "add_nft_to_collection",
+          "inputs": [
+            {
+              "name": "collection",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "user",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "token_id",
+              "type": "core::integer::u256"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "add_nfts_to_collection",
+          "inputs": [
+            {
+              "name": "collection",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "user",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "token_ids",
+              "type": "core::array::Span::<core::integer::u256>"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "has_nft",
+          "inputs": [
+            {
+              "name": "user",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "collection",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "token_id",
+              "type": "core::integer::u256"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::bool"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::collection_factory_contract::CollectionFactory::CollectionCreated",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "creator",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        },
+        {
+          "name": "collection",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::collection_factory_contract::CollectionFactory::NftAdded",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "collection",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        },
+        {
+          "name": "user",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        },
+        {
+          "name": "token_id",
+          "type": "core::integer::u256",
+          "kind": "data"
+        },
+        {
+          "name": "added_by",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::collection_factory_contract::CollectionFactory::NftsBatchAdded",
+      "kind": "struct",
+      "members": [
+        {
+          "name": "collection",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        },
+        {
+          "name": "user",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        },
+        {
+          "name": "token_ids",
+          "type": "core::array::Span::<core::integer::u256>",
+          "kind": "data"
+        },
+        {
+          "name": "added_by",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "kind": "data"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "nftopia::contracts::collection_factory_contract::CollectionFactory::Event",
+      "kind": "enum",
+      "variants": [
+        {
+          "name": "CollectionCreated",
+          "type": "nftopia::contracts::collection_factory_contract::CollectionFactory::CollectionCreated",
+          "kind": "nested"
+        },
+        {
+          "name": "NftAdded",
+          "type": "nftopia::contracts::collection_factory_contract::CollectionFactory::NftAdded",
+          "kind": "nested"
+        },
+        {
+          "name": "NftsBatchAdded",
+          "type": "nftopia::contracts::collection_factory_contract::CollectionFactory::NftsBatchAdded",
+          "kind": "nested"
+        }
+      ]
+    }
+  ]
+}
